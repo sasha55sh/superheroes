@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useContext } from "react";
+import { Pagination } from "flowbite-react";
 import { CardProps } from "@/config/types";
 import CardSceleton from "./CardSceleton";
 import { CardsContext } from "./CatalogSection";
 import CardComponent from "@/components/catalog-page/CardComponent";
-import { Pagination } from "flowbite-react";
 
 const HeroesCollection = ({ isLoading }: { isLoading: boolean }) => {
   const allCards = useContext(CardsContext);
