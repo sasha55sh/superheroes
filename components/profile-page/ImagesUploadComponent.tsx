@@ -1,6 +1,6 @@
-import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
 import Image from "next/image";
 import Close from "@/images/vectors/close.svg";
+import { Dropzone, IMAGE_MIME_TYPE, FileWithPath } from "@mantine/dropzone";
 
 interface ImagesUploadProps {
   maxFiles?: number;
@@ -80,7 +80,7 @@ export default function ImagesUpload({
         accept={IMAGE_MIME_TYPE}
         onDrop={handleDrop}
         disabled={totalImages >= maxFiles}
-        className="border-2 border-dashed border-gray-400 rounded-md p-4 mb-4"
+        className="border-[3px] border-dashed border-gray-400 rounded-md p-[16px] mb-[16px]"
       >
         <p className="text-center text-crimson text-[20px]">
           {heroImages.length > 0
@@ -89,7 +89,7 @@ export default function ImagesUpload({
         </p>
       </Dropzone>
 
-      <div className="flex space-x-[20px] justify-center">{previews}</div>
+      <div className="flex flex-wrap gap-[20px] justify-center">{previews}</div>
     </div>
   );
 }
