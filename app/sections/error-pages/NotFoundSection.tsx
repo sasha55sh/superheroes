@@ -16,9 +16,9 @@ const NotFoundSection: FC = () => {
           <br /> Menwhile, cheek out these fresh ideas:
         </p>
         <Button
-          text="Go to home"
+          text="Go to catalog"
           background="skyblue"
-          href="/"
+          href="/catalog"
           tag="a"
           className="max-w-[150px]"
         />

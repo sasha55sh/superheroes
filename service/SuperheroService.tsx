@@ -1,7 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "@/config/config";
 import { InfoMessage, NewSuperhero } from "@/config/types";
-import { Superhero } from "@/config/types";
 
 export const getAllSuperheroes = async (
   setInfoMessage?: (message: InfoMessage) => void
@@ -103,16 +102,13 @@ export const updateSuperheroData = async (
 export const createSuperhero = async (
   data: NewSuperhero,
   setInfoMessage?: (message: InfoMessage) => void
-): Promise<Superhero | undefined> => {
+): Promise<any> => {
   try {
-    const response = await axios.post(`${BASE_URL}/catalog/create`, {
-      ...data,
-      images: [],
-    });
+    const response = await axios.post(`${BASE_URL}/catalog/create`, data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 500 || error.code === "ERR_NETWORK") {
+      if (error.status === 500 || error.code === "ERR_NETWORK") {
         if (setInfoMessage) {
           setInfoMessage({
             type: "error",
@@ -120,7 +116,7 @@ export const createSuperhero = async (
           });
         }
       } else {
-        return undefined;
+        return error.status;
       }
     }
   }

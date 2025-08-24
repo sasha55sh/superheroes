@@ -1,21 +1,21 @@
 "use client";
 import React, { FC, useState, useEffect } from "react";
-import Button from "@/components/ButtonComponent";
 import { NewSuperhero } from "@/config/types";
-import Input from "@/components/InputComponent";
+import { Loader } from "@mantine/core";
+import { useAlert } from "@/hooks/useAlert";
 import { useForm, hasLength } from "@mantine/form";
-import ImagesUpload from "@/components/profile-page/ImagesUploadComponent";
 import { FileWithPath } from "@mantine/dropzone";
+import Button from "@/components/ButtonComponent";
+import Input from "@/components/InputComponent";
+import ImagesUpload from "@/components/profile-page/ImagesUploadComponent";
 import { uploadImages } from "@/service/ImagesService";
-import {
-  createSuperhero,
-  updateSuperheroData,
-} from "@/service/SuperheroService";
+import { createSuperhero } from "@/service/SuperheroService";
 
 const CreateSuperheroSection: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [superheroImages, setSuperheroImages] = useState<FileWithPath[]>([]);
   const [error, setError] = useState<string>("");
+  const { setInfoMessage } = useAlert();
 
   const form = useForm<NewSuperhero>({
     initialValues: {
@@ -43,14 +43,37 @@ const CreateSuperheroSection: FC = () => {
 
   useEffect(() => {
     const values = form.values;
-    if (Object.values(values).some((v) => v !== "")) {
+    if (Object.values(values).some((value) => value !== "")) {
       localStorage.setItem("superheroData", JSON.stringify(values));
     }
   }, [form.values]);
 
   const handleCreate = async () => {
-   //невстигла коректно реалізувати
+    setIsLoading(true);
+    setError("");
+
+    const newHero = await createSuperhero(form.values, setInfoMessage);
+    let updatedHero = newHero;
+
+    if (superheroImages.length > 0) {
+      updatedHero = await uploadImages(newHero._id, superheroImages, setInfoMessage);
+    }
+
+    form.reset();
+    setSuperheroImages([]);
+    localStorage.removeItem("superheroData");
+    alert("Superhero successfully created");
+
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[80vh] w-full ">
+        <Loader className="animate-spin rounded-full border-[5px] border-burgundy border-b-transparent w-[40px] h-[40px]" />
+      </div>
+    );
+  }
 
   return (
     <section>
@@ -125,6 +148,8 @@ const CreateSuperheroSection: FC = () => {
             className="h-[200px] resize-none no-scrollbar"
             background="mouseGray"
           />
+
+          {error && <p className="text-crimson font-medium">{error}</p>}
 
           <div className="w-full flex flex-col items-center space-y-[20px] sm:flex-row sm:space-y-0 sm:space-x-[20px] sm:justify-center">
             <Button

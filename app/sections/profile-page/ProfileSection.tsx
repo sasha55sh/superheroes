@@ -1,14 +1,15 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
-import { Superhero } from "@/config/types";
 import { Loader } from "@mantine/core";
-import { getSuperheroById } from "@/service/SuperheroService";
-import Quotes from "@/images/vectors/quotes.svg";
-import Lightning from "@/images/vectors/lightning.svg";
+import { Superhero } from "@/config/types";
+import { useAlert } from "@/hooks/useAlert";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ActionsSection from "./ActionsSection";
+import Quotes from "@/images/vectors/quotes.svg";
+import Lightning from "@/images/vectors/lightning.svg";
+import { getSuperheroById } from "@/service/SuperheroService";
 
 interface profileProps {
   superheroId: string;
@@ -17,11 +18,12 @@ interface profileProps {
 const ProfileSection: FC<profileProps> = ({ superheroId }) => {
   const [superhero, setSuperhero] = useState<Superhero | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { setInfoMessage } = useAlert();
 
   useEffect(() => {
     const fetchSuperhero = async () => {
       setIsLoading(true);
-      const superheroData: Superhero = await getSuperheroById(superheroId);
+      const superheroData: Superhero = await getSuperheroById(superheroId, setInfoMessage);
       if (superheroData) {
         setSuperhero(superheroData);
       } else {
@@ -94,7 +96,7 @@ const ProfileSection: FC<profileProps> = ({ superheroId }) => {
             </span>
           </h1>
 
-          <p className="bg-mouseGray/90 py-[10px] px-[20px] text-[22px] font-medium text-cream rounded-xl flex items-center text-center">
+          <p className="bg-mouseGray/90 p-[10px_20px] text-[22px] font-medium text-cream rounded-xl flex items-center text-center">
             <Image
               src={Quotes}
               alt="Quotes icon"

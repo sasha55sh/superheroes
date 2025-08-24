@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Modal, ModalBody, ModalHeader } from "flowbite-react";
-import Button from "../ButtonComponent";
 import { Superhero } from "@/config/types";
-import { useForm, hasLength } from "@mantine/form";
-import { updateSuperheroData } from "@/service/SuperheroService";
-import Input from "@/components/InputComponent";
-import ImagesUpload from "./ImagesUploadComponent";
+import { useAlert } from "@/hooks/useAlert";
 import { FileWithPath } from "@mantine/dropzone";
+import { useForm, hasLength } from "@mantine/form";
+import { Modal, ModalBody, ModalHeader } from "flowbite-react";
+import ImagesUpload from "./ImagesUploadComponent";
+import Input from "@/components/InputComponent";
+import Button from "../ButtonComponent";
 import { uploadImages } from "@/service/ImagesService";
+import { updateSuperheroData } from "@/service/SuperheroService";
 
 interface DeleteModalProps {
   superhero: Superhero | null;
   setSuperhero: any;
   openModal: boolean;
   setOpenModal: any;
-  isLoading: boolean;
   setIsLoading: any;
 }
 
 const EditModal = ({
   openModal,
   setOpenModal,
-  isLoading,
   superhero,
   setSuperhero,
   setIsLoading,
@@ -29,6 +28,7 @@ const EditModal = ({
   const [heroImages, setHeroImages] = useState<string[]>([]);
   const [newFiles, setNewFiles] = useState<FileWithPath[]>([]);
   const [error, setError] = useState<string>("");
+  const { setInfoMessage } = useAlert();
 
   useEffect(() => {
     if (superhero) {
@@ -87,13 +87,18 @@ const EditModal = ({
       updateData.catch_phrase = values.catch_phrase.trim();
     }
 
-    const updatedHero = await updateSuperheroData(superhero!._id!, updateData);
+    const updatedHero = await updateSuperheroData(
+      superhero!._id!,
+      updateData,
+      setInfoMessage
+    );
 
     if (updatedHero) {
-      const updatedWithImages = await uploadImages(superhero!._id!, [
-        ...heroImages,
-        ...newFiles,
-      ]);
+      const updatedWithImages = await uploadImages(
+        superhero!._id!,
+        [...heroImages, ...newFiles],
+        setInfoMessage
+      );
 
       setSuperhero(updatedWithImages);
       setOpenModal(false);
