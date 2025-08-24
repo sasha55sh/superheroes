@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import Button from "@/components/ButtonComponent";
 import Image from "next/image";
-import Edit from "@/images/vectors/edit.svg";
 import { Superhero } from "@/config/types";
-import { deleteSuperheroById } from "@/service/SuperheroService";
+import { useRouter } from "next/navigation";
 import { useAlert } from "@/hooks/useAlert";
+import Edit from "@/images/vectors/edit.svg";
+import Button from "@/components/ButtonComponent";
+import { deleteSuperheroById } from "@/service/SuperheroService";
 import DeleteModal from "@/components/profile-page/DeleteModalComponent";
 import EditModal from "@/components/profile-page/EditModalComponent";
+
 const ActionsSection = ({
   superhero,
   setSuperhero,
@@ -51,7 +52,6 @@ const ActionsSection = ({
         <EditModal
           setIsLoading={setIsLoading}
           superhero={superhero}
-          isLoading={isLoading}
           openModal={openEditModal}
           setOpenModal={setOpenEditModal}
           setSuperhero={setSuperhero}
