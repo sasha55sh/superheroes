@@ -8,7 +8,7 @@ This project is a web application for managing a database of superheroes. Users 
 
 - Frontend: React.js, TypeScript, Next.js - routing between pages and server-side rendering, Tailwind CSS – for responsive styling, Axios – handles HTTP requests between frontend and backend, Mantine – UI components and hooks for building responsive interfaces.
 - Backend: Node.js, JavaScript,  Express.js – API handling.
-- Database: MongoDB – stores all application data.
+- Database: MongoDB – stores all superheroes data.
 - Cloud Services: Cloudinary – stores and optimizes images
 
 # Deployment: 
