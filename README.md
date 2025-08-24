@@ -1,36 +1,18 @@
-# Superhero Catalog
+# Superhero Database
 
-This project is a web application for managing a database of superheroes. Users can create, view, update, and delete superheroes. Each superhero has associated images, superpowers, and a catchphrase.
-
----
-
-## Features
-
-- Add new superheroes with:
-  - Nickname
-  - Real name
-  - Origin description
-  - Superpowers
-  - Catchphrase
-  - Exactly 4 images
-- Edit existing superheroes
-- Delete superheroes
-- Client-side validation for all fields
-- Responsive design
-
+This project is a web application for managing a database of superheroes. Users can create, view, update, and delete superheroes. Each superhero has associated nicknames, real name, images, superpowers and catchphrase.
 
 ---
 
-## Technologies Used
+# Tech Stack
 
-- **Frontend**: React 18, Next.js, TypeScript, TailwindCSS
-- **State management & Forms**: Mantine `useForm`
-- **File Upload**: Mantine Dropzone
-- **Backend API**: Node.js + Express.js (assumed)
-- **Database**: MongoDB (assumed)
-- **Services**:
-  - `SuperheroService` for CRUD operations
-  - `ImagesService` for uploading images
--   This project uses **Cloudinary** to store superhero images.
+- Frontend: React.js, TypeScript, Next.js - routing between pages and server-side rendering, Tailwind CSS – for responsive styling, Axios – handles HTTP requests between frontend and backend, Mantine – UI components and hooks for building responsive interfaces.
+- Backend: Node.js, JavaScript,  Express.js – API handling.
+- Database: MongoDB – stores all application data.
+- Cloud Services: Cloudinary – stores and optimizes images
 
+# Deployment: 
+
+( https://superheroes-db.vercel.app ) – Frontend hosting on Vercel
+( https://superheroes-backend.up.railway.app )- Backend hosting on Railway 
 
