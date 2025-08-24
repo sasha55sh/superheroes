@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/HeaderComponent";
+import Footer from "@/components/FooterComponent";
+import { MantineProvider } from "@mantine/core";
+import { AlertProvider } from "@/hooks/useAlert";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +24,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <MantineProvider>
+          <AlertProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </AlertProvider>
+        </MantineProvider>
+      </body>
     </html>
   );
 }
