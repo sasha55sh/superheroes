@@ -14,5 +14,5 @@ This project is a web application for managing a database of superheroes. Users 
 # Deployment: 
 
 ( https://superheroes-db.vercel.app ) – Frontend hosting on Vercel
-( https://superheroes-backend.up.railway.app )- Backend hosting on Railway 
+( https://superheroes-backend-khrl.onrender.com)- Backend hosting on Render 
 
